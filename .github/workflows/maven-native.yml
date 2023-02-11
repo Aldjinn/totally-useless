@@ -22,7 +22,7 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
       - name: Prepare quarkus-build-arm64
-        run: docker build --platform linux/arm64 -f src/main/docker/Dockerfile.graalvmarm64 -t quarkus-build-arm64 .
+        run: docker buildx build --platform linux/arm64 -f src/main/docker/Dockerfile.graalvmarm64 -t quarkus-build-arm64 .
       - name: Build native with Maven inside Docker
         run: mvn package -Pnative -Dquarkus.native.container-build=true -Dquarkus.native.builder-image=quarkus-build-arm64
       - name: Login to DockerHub
