@@ -17,7 +17,7 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
           cache: maven
-      - name: Build with Maven
+      - name: Build native with Maven inside Docker
         run: mvn package -Pnative -Dquarkus.native.container-build=true
       - name: Login to DockerHub
         uses: docker/login-action@v1
