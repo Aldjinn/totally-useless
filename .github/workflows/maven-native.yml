@@ -27,9 +27,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Prepare quarkus-build-arm64
-        run: docker buildx build --platform linux/arm64 -f src/main/docker/Dockerfile.graalvmarm64 -t aldjinn/quarkus-build-arm64 .
-      - name: Push quarkus-build-arm64
-        run: docker push aldjinn/quarkus-build-arm64
+        run: docker buildx build --platform linux/arm64 -f src/main/docker/Dockerfile.graalvmarm64 -t aldjinn/quarkus-build-arm64:latest . && docker push aldjinn/quarkus-build-arm64:latest
       - name: Build native with Maven inside Docker
         run: mvn package -Pnative -Dquarkus.native.container-build=true -Dquarkus.native.builder-image=aldjinn/quarkus-build-arm64
       - name: Build and push
