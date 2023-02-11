@@ -34,3 +34,14 @@ jobs:
           context: .
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
+      - name: Build and push (arm64)
+        id: docker_build_arm64
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          tags: aldjinn/totally-useless:jvm
+          file: ./src/main/docker/Dockerfile.jvm
+          context: .
+          platform: linux/arm64
+      - name: Image digest
+        run: echo ${{ steps.docker_build_arm64.outputs.digest }}
