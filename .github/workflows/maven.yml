@@ -31,5 +31,6 @@ jobs:
           push: true
           tags: aldjinn/totally-useless:latest
           file: ./src/main/docker/Dockerfile.jvm
+          context: .
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
