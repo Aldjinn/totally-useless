@@ -36,6 +36,6 @@ jobs:
           tags: aldjinn/totally-useless:latest
           file: ./src/main/docker/Dockerfile.native-micro
           context: .
-          platforms: linux/amd64,linux/arm64,linux/arm/v7
+          platforms: linux/amd64,linux/arm64
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
