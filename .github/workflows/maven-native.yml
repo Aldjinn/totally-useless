@@ -26,10 +26,19 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: Prepare quarkus-build-arm64
-        run: docker buildx build --platform linux/arm64 -f src/main/docker/Dockerfile.graalvmarm64 -t aldjinn/quarkus-build-arm64:latest . && docker push aldjinn/quarkus-build-arm64:latest
+      - name: Build and push builder image
+        id: docker_build_builder
+        uses: docker/build-push-action@v4
+        with:
+          push: true
+          tags: aldjinn/quarkus-build-arm64:latest
+          file: ./src/main/docker/Dockerfile.graalvmarm64
+          context: .
+          platforms: linux/arm64
+      - name: Image digest
+        run: echo ${{ steps.docker_build_builder.outputs.digest }}
       - name: Build native with Maven inside Docker
-        run: mvn package -Pnative -Dquarkus.native.container-build=true -Dquarkus.native.builder-image=aldjinn/quarkus-build-arm64
+        run: mvn package -Pnative -Dquarkus.native.container-build=true -Dquarkus.native.builder-image=aldjinn/quarkus-build-arm64:latest
       - name: Build and push
         id: docker_build
         uses: docker/build-push-action@v4
