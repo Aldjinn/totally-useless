@@ -17,8 +17,10 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
           cache: maven
+      - name: Prepare quarkus-build-arm64
+        run: docker build --platform linux/arm64 -f src/main/docker/Dockerfile.graalvmarm64 -t quarkus-build-arm64 .
       - name: Build native with Maven inside Docker
-        run: mvn package -Pnative -Dquarkus.native.container-build=true
+        run: mvn package -Pnative -Dquarkus.native.container-build=true -Dquarkus.native.builder-image=quarkus-build-arm64
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
       - name: Set up Docker Buildx
@@ -36,6 +38,7 @@ jobs:
           tags: aldjinn/totally-useless:latest
           file: ./src/main/docker/Dockerfile.native-micro
           context: .
-          platforms: linux/amd64,linux/arm64
+          # platforms: linux/amd64,linux/arm64
+          platforms: linux/arm64
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
