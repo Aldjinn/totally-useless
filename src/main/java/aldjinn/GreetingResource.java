@@ -9,9 +9,12 @@ import javax.ws.rs.core.MediaType;
 public class GreetingResource {
 
     @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public String hello() {
-        return "Hello from RESTEasy Reactive";
+    @Produces(MediaType.APPLICATION_JSON)
+    public Message hello() {
+        return new Message("Hello, world!");
+    }
+
+    private record Message(String body) {
     }
 
 }
