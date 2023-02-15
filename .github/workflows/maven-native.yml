@@ -16,7 +16,7 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
-          cache: maven
+          cache: 'maven'
       - name: Login to DockerHub
         uses: docker/login-action@v2
         with:
@@ -29,6 +29,6 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           push: true
-          tags: aldjinn/totally-useless:latest
+          tags: aldjinn/totally-useless:x64
           file: ./src/main/docker/Dockerfile.native-micro
           context: .
