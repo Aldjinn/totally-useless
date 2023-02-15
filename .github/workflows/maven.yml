@@ -97,4 +97,16 @@ jobs:
           tags: aldjinn/totally-useless:arm64
           file: ./src/main/docker/Dockerfile.native-micro
           context: .
-          platforms: linux/arm64
+
+  link-native-to-latest:
+    runs-on: ubuntu-latest
+    needs: build-native-x64,build-native-xarm64
+    steps:
+      - name: Login to DockerHub
+        uses: docker/login-action@v2
+      - name: Create and push manifest images
+        uses: Noelware/docker-manifest-action@master # or use a pinned version in the Releases tab
+        with:
+          inputs: aldjinn/totally-useless:latest
+          images: aldjinn/totally-useless:arm64,aldjinn/totally-useless:x64
+          push: true
