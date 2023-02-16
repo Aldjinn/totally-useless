@@ -52,12 +52,20 @@
 <h1>Under Maintenance</h1>
 <p>Sorry for the inconvenience, our site is currently under maintenance.</p>
 <p>We'll be back soon!</p>
+<p>{uuid}</p>
+<p>{userAgent}</p>
+<p>{host}</p>
+<p>{hostAddress}</p>
 <div id="timestamp">
     <p>Date and Time: <span id="datetime"></span></p>
 </div>
 <script>
-      var dt = new Date();
-      document.getElementById("datetime").innerHTML = dt.toLocaleString();
+      myTimer();
+      setInterval(myTimer, 1000);
+      function myTimer() {
+          var dt = new Date();
+          document.getElementById("datetime").innerHTML = dt.toLocaleString();
+      }
 </script>
 </body>
 </html>
