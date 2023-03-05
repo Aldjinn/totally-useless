@@ -3,6 +3,7 @@ package de.aldjinn;
 import io.quarkus.qute.Template;
 import io.quarkus.qute.TemplateInstance;
 import io.vertx.core.http.HttpServerRequest;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import javax.inject.Inject;
 import javax.ws.rs.GET;
@@ -23,14 +24,18 @@ public class IndexResource {
     @Inject
     Template index;
 
+    @Inject
+    @ConfigProperty(name = "totally-useless.build.timestamp")
+    String buildTimestamp;
+
     @GET
     @Produces(MediaType.TEXT_HTML)
     public TemplateInstance get() {
         var attributes = Map.of("userAgent", request.getHeader("User-Agent"),
                 "uuid", UUID.randomUUID(),
                 "hostAddress", request.connection().remoteAddress().hostAddress(),
-                "host", request.host());
-
+                "host", request.host(),
+                "buildTimestamp", buildTimestamp);
         return index.data(attributes);
     }
 
