@@ -33,7 +33,6 @@ public class IndexResource {
     public TemplateInstance get() {
         var attributes = Map.of("userAgent", request.getHeader("User-Agent"),
                 "uuid", UUID.randomUUID(),
-                "hostAddress", request.connection().remoteAddress().hostAddress(),
                 "host", request.host(),
                 "buildTimestamp", buildTimestamp);
         return index.data(attributes);
