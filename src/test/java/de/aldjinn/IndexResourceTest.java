@@ -18,4 +18,25 @@ public class IndexResourceTest {
                 .body(containsString("Under Maintenance"));
     }
 
+    public void testIpEndpoint() {
+        given()
+                .when().get("/ip")
+                .then()
+                .statusCode(200);
+    }
+
+    public void testIpJsonEndpoint() {
+        given()
+                .when().get("/ip/json")
+                .then()
+                .statusCode(200);
+    }
+
+    public void testNotFoundEndpoint() {
+        given()
+                .when().get("/not/found")
+                .then()
+                .statusCode(404);
+    }
+
 }
