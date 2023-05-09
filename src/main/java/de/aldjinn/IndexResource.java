@@ -26,6 +26,8 @@ public class IndexResource {
 
     private static final Logger LOG = Logger.getLogger(IndexResource.class);
 
+    private ObjectMapper objectMapper = new ObjectMapper();
+
     @Context
     HttpServerRequest request;
 
@@ -61,13 +63,21 @@ public class IndexResource {
     @Path("/ip/json")
     @Produces(MediaType.APPLICATION_JSON)
     public String getRemoteIpJson() throws JsonProcessingException {
-        var objectMapper = new ObjectMapper();
+        var json = objectMapper.writeValueAsString(getIpHeaders());
+        LOG.info(json);
+        return json;
+    }
+
+    @GET
+    @Path("/headers")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getHeadersJson() throws JsonProcessingException {
         var json = objectMapper.writeValueAsString(getHeaders());
         LOG.info(json);
         return json;
     }
 
-    private Map<String, String> getHeaders() {
+    private Map<String, String> getIpHeaders() {
         var map = new TreeMap<String, String>();
         map.put("Timestamp", DateFormat.getDateTimeInstance().format(System.currentTimeMillis()));
         addToMapIfPresent(map, "User-Agent");
@@ -80,6 +90,12 @@ public class IndexResource {
         if (!StringUtil.isNullOrEmpty(request.getHeader(key))) {
             map.put(key, request.getHeader(key));
         }
+    }
+
+    private Map<String, String> getHeaders() {
+        var map = new TreeMap<String, String>();
+        request.headers().entries().forEach(e -> map.put(e.getKey(), e.getValue()));
+        return map;
     }
 
 }

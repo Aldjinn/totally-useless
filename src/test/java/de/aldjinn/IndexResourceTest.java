@@ -37,6 +37,15 @@ public class IndexResourceTest {
     }
 
     @Test
+    public void testHeadersJsonEndpoint() {
+        given()
+                .when().get("/headers")
+                .then()
+                .statusCode(200)
+                .body(containsString("Apache-HttpClient"));
+    }
+
+    @Test
     public void testNotFoundEndpoint() {
         given()
                 .when().get("/not/found")
