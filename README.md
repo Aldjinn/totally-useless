@@ -24,3 +24,11 @@ The magic of linking Docker manifests is done by https://github.com/Noelware/doc
 ./mvnw package -Pnative
 ./mvnw package -Pnative -Dquarkus.native.container-build=true
 ```
+
+## Dockerhub
+
+Images can be found at https://hub.docker.com/r/aldjinn/totally-useless.
+
+```bash
+docker run --rm -p 8080:8080 aldjinn/totally-useless:latest
+```
