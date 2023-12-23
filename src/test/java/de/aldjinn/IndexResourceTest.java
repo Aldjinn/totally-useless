@@ -7,10 +7,10 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.containsString;
 
 @QuarkusTest
-public class IndexResourceTest {
+class IndexResourceTest {
 
     @Test
-    public void testIndexEndpoint() {
+    void testIndexEndpoint() {
         given()
                 .when().get("/")
                 .then()
@@ -19,7 +19,7 @@ public class IndexResourceTest {
     }
 
     @Test
-    public void testIpEndpoint() {
+    void testIpEndpoint() {
         given()
                 .when().get("/ip")
                 .then()
@@ -28,7 +28,7 @@ public class IndexResourceTest {
     }
 
     @Test
-    public void testIpJsonEndpoint() {
+    void testIpJsonEndpoint() {
         given()
                 .when().get("/ip/json")
                 .then()
@@ -37,7 +37,7 @@ public class IndexResourceTest {
     }
 
     @Test
-    public void testHeadersJsonEndpoint() {
+    void testHeadersJsonEndpoint() {
         given()
                 .when().get("/headers")
                 .then()
@@ -46,7 +46,7 @@ public class IndexResourceTest {
     }
 
     @Test
-    public void testNotFoundEndpoint() {
+    void testNotFoundEndpoint() {
         given()
                 .when().get("/not/found")
                 .then()

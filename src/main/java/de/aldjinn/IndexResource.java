@@ -6,7 +6,6 @@ import io.quarkus.qute.Template;
 import io.quarkus.qute.TemplateInstance;
 import io.quarkus.runtime.util.StringUtil;
 import io.vertx.core.http.HttpServerRequest;
-import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
@@ -26,24 +25,26 @@ public class IndexResource {
 
     private static final Logger LOG = Logger.getLogger(IndexResource.class);
 
-    private ObjectMapper objectMapper = new ObjectMapper();
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
     @Context
     HttpServerRequest request;
 
-    @Inject
     Template index;
 
-    @Inject
     @ConfigProperty(name = "totally-useless.build.timestamp")
     String buildTimestamp;
+
+    public IndexResource(Template index){
+       this.index = index;
+    }
 
     @GET
     @Produces(MediaType.TEXT_HTML)
     public TemplateInstance getIndex() {
         var attributes = Map.of("userAgent", request.getHeader("User-Agent"),
                 "uuid", UUID.randomUUID(),
-                "host", request.host(),
+                "host", request.authority().host(),
                 "buildTimestamp", buildTimestamp);
         return index.data(attributes);
     }
