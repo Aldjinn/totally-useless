@@ -35,8 +35,8 @@ public class IndexResource {
     @ConfigProperty(name = "totally-useless.build.timestamp")
     String buildTimestamp;
 
-    public IndexResource(Template index){
-       this.index = index;
+    public IndexResource(Template index) {
+        this.index = index;
     }
 
     @GET
@@ -53,6 +53,9 @@ public class IndexResource {
     @Path("/ip")
     @Produces(MediaType.TEXT_PLAIN)
     public String getRemoteIp() {
+        if (isCloudflare()) {
+            return request.getHeader("CF-Connecting-IP");
+        }
         var xForwardedFor = request.getHeader("X-Forwarded-For");
         if (StringUtil.isNullOrEmpty(xForwardedFor)) {
             return "127.0.0.1";
@@ -84,6 +87,7 @@ public class IndexResource {
         addToMapIfPresent(map, "User-Agent");
         addToMapIfPresent(map, "X-Forwarded-For");
         addToMapIfPresent(map, "X-Real-Ip");
+        addToMapIfPresent(map, "Cf-Connecting-Ip");
         return map;
     }
 
@@ -97,6 +101,10 @@ public class IndexResource {
         var map = new TreeMap<String, String>();
         request.headers().entries().forEach(e -> map.put(e.getKey(), e.getValue()));
         return map;
+    }
+
+    private boolean isCloudflare() {
+        return !StringUtil.isNullOrEmpty(request.getHeader("CF-Connecting-IP"));
     }
 
 }
