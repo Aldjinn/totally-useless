@@ -16,7 +16,7 @@ jobs:
           distribution: 'temurin'
           cache: 'maven'
       - name: Build with Maven
-        run: mvn package
+        run: mvn package -B
 
   build-native-x64:
     runs-on: ubuntu-latest
@@ -29,7 +29,7 @@ jobs:
           distribution: 'temurin'
           cache: 'maven'
       - name: Build native with Maven inside Docker
-        run: mvn package -Pnative -Dquarkus.native.container-build=true
+        run: mvn package -B -Pnative -Dquarkus.native.container-build=true
 
   build-native-arm64:
     runs-on: [self-hosted, linux, ARM64]
@@ -46,4 +46,4 @@ jobs:
         with:
           maven-version: 3.9.0
       - name: Build native with Maven inside Docker
-        run: mvn package -Pnative -Dquarkus.native.container-build=true
+        run: mvn package -B -Pnative -Dquarkus.native.container-build=true

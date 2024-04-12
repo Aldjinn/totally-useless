@@ -16,7 +16,7 @@ jobs:
           distribution: 'temurin'
           cache: 'maven'
       - name: Build with Maven
-        run: mvn package
+        run: mvn package -B
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
       - name: Set up Docker Buildx
@@ -52,7 +52,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Build native with Maven inside Docker
-        run: mvn package -Pnative -Dquarkus.native.container-build=true
+        run: mvn package -B -Pnative -Dquarkus.native.container-build=true
       - name: Build and push
         id: docker_build
         uses: docker/build-push-action@v5
@@ -87,7 +87,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Build native with Maven inside Docker
-        run: mvn package -Pnative -Dquarkus.native.container-build=true
+        run: mvn package -B -Pnative -Dquarkus.native.container-build=true
       - name: Build and push
         id: docker_build
         uses: docker/build-push-action@v5
