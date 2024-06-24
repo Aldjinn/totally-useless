@@ -28,7 +28,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Build and push
         id: docker_build
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           push: true
           tags: aldjinn/totally-useless:jvm
@@ -55,7 +55,7 @@ jobs:
         run: mvn package -B -Pnative -Dquarkus.native.container-build=true
       - name: Build and push
         id: docker_build
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           push: true
           tags: aldjinn/totally-useless:latest-x64
@@ -90,7 +90,7 @@ jobs:
         run: mvn package -B -Pnative -Dquarkus.native.container-build=true
       - name: Build and push
         id: docker_build
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           push: true
           tags: aldjinn/totally-useless:latest-arm64
