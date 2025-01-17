@@ -64,7 +64,7 @@ jobs:
           provenance: false
 
   build-native-arm64:
-    runs-on: [self-hosted, linux, ARM64]
+    runs-on: [ubuntu-24.04-arm]
     steps:
       - uses: actions/checkout@v4
       - name: Set up JDK 21
