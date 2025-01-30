@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.Matchers.hasKey;
 
 @QuarkusTest
 class IndexResourceTest {
@@ -33,7 +34,8 @@ class IndexResourceTest {
                 .when().get("/ip/json")
                 .then()
                 .statusCode(200)
-                .body(containsString("Apache-HttpClient"));
+                .body(containsString("Timestamp"))
+                .body(containsString("User-Agent"));
     }
 
     @Test
@@ -42,7 +44,8 @@ class IndexResourceTest {
                 .when().get("/headers")
                 .then()
                 .statusCode(200)
-                .body(containsString("Apache-HttpClient"));
+                .body("$", hasKey("User-Agent"))
+                .body("$", hasKey("Host"));
     }
 
     @Test
