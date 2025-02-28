@@ -1,5 +1,0 @@
-FROM ghcr.io/graalvm/graalvm-ce:latest AS build
-WORKDIR /project
-RUN gu install native-image
-VOLUME ["/project"]
-ENTRYPOINT ["native-image"]
