@@ -128,9 +128,9 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: Create and push manifest images
-        uses: Noelware/docker-manifest-action@v0.4.3
-        with:
-          inputs: aldjinn/totally-useless:latest
-          images: aldjinn/totally-useless:latest-arm64,aldjinn/totally-useless:latest-x64
-          push: true
+      - name: Create Docker manifest
+        run: |
+          docker manifest create aldjinn/totally-useless:latest \
+            aldjinn/totally-useless:latest-arm64 \
+            aldjinn/totally-useless:latest-x64
+          docker manifest push aldjinn/totally-useless:latest
