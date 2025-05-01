@@ -45,7 +45,8 @@ public class IndexResource {
         var attributes = Map.of("userAgent", request.getHeader("User-Agent"),
                 "uuid", UUID.randomUUID(),
                 "host", request.authority().host(),
-                "buildTimestamp", buildTimestamp);
+                "buildTimestamp", buildTimestamp,
+                "architecture", System.getProperty("os.arch"));
         return index.data(attributes);
     }
 
