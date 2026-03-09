@@ -50,10 +50,10 @@ jobs:
         run: |
           docker pull aldjinn/totally-useless:jvm
           docker run -d -p 8080:8080 --name totally-useless-jvm aldjinn/totally-useless:jvm
-          sleep 15
+          sleep 5
       - name: Check runnability with curl
         run: |
-          curl -f http://localhost:8080 || exit 1
+          curl -f http://localhost:8080/headers || exit 1
       - name: Cleanup
         if: always()
         run: docker stop totally-useless-jvm && docker rm totally-useless-jvm
@@ -95,10 +95,10 @@ jobs:
         run: |
           docker pull aldjinn/totally-useless:latest-x64
           docker run -d -p 8080:8080 --name totally-useless-x64 aldjinn/totally-useless:latest-x64
-          sleep 10
+          sleep 5
       - name: Check runnability with curl
         run: |
-          curl -f http://localhost:8080 || exit 1
+          curl -f http://localhost:8080/headers || exit 1
       - name: Cleanup
         if: always()
         run: docker stop totally-useless-x64 && docker rm totally-useless-x64
@@ -148,10 +148,10 @@ jobs:
         run: |
           docker pull aldjinn/totally-useless:latest-arm64
           docker run -d -p 8080:8080 --name totally-useless-arm64 aldjinn/totally-useless:latest-arm64
-          sleep 10
+          sleep 5
       - name: Check runnability with curl
         run: |
-          curl -f http://localhost:8080 || exit 1
+          curl -f http://localhost:8080/headers || exit 1
       - name: Cleanup
         if: always()
         run: docker stop totally-useless-arm64 && docker rm totally-useless-arm64
@@ -175,10 +175,10 @@ jobs:
         run: |
           docker pull aldjinn/totally-useless:latest
           docker run -d -p 8080:8080 --name totally-useless aldjinn/totally-useless:latest
-          sleep 10
+          sleep 5
       - name: Check runnability with curl
         run: |
-          curl -f http://localhost:8080 || exit 1
+          curl -f http://localhost:8080/headers || exit 1
       - name: Cleanup
         if: always()
         run: docker stop totally-useless && docker rm totally-useless
