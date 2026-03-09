@@ -45,9 +45,5 @@ jobs:
           java-version: '25'
           distribution: 'temurin'
           cache: 'maven'
-      - name: Set up Maven
-        uses: stCarolas/setup-maven@v5
-        with:
-          maven-version: 3.9.0
       - name: Build native with Maven inside Docker
         run: mvn package -B -Pnative -Dquarkus.native.container-build=true
