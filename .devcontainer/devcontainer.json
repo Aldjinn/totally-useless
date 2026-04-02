@@ -6,35 +6,53 @@
   	// "image": "mcr.microsoft.com/devcontainers/java:0-17",
 	// "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
 	// https://github.com/devcontainers/images/tree/main/src/java
-	"image": "mcr.microsoft.com/devcontainers/java:21",
+	"image": "mcr.microsoft.com/devcontainers/java:25",
 
 	"features": {
 		 "ghcr.io/devcontainers/features/java:1": {
-			"version": "21",
+			"version": "25",
 			"installMaven": "true",
 			"installGradle": "false"
 		},
-		"ghcr.io/devcontainers/features/docker-in-docker:2": {}
+		"ghcr.io/devcontainers/features/docker-in-docker:2": {
+			"moby": false
+		},
+		"ghcr.io/devcontainers/features/github-cli:1": {}
 		// "ghcr.io/devcontainers/features/node:1": {},
 		// "ghcr.io/devcontainers/features/python:1": {},
 		// "ghcr.io/devcontainers/features/go:1": {}
 	},
 
+	"containerEnv": {
+		"QUARKUS_HTTP_PORT": "8080",
+		"JAVA_HOME": "/usr/lib/jvm/msopenjdk-current"
+	},
+
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	// "forwardPorts": [],
+	"forwardPorts": [8080],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "mvn -version"
+	"postCreateCommand": "export LANG=en_US.UTF-8 && mvn -version",
+
+	"postStartCommand": "echo 'Dev container ready!'",
 
 	// Configure tool-specific properties.
-    //"customizations": {
-    //    "vscode": {
-    //        "settings": {
-    //            "locale": "en"
-    //        }
-    //    }
-    //}
-
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "redhat.java",
+                "vscjava.vscode-java-pack",
+                "redhat.vscode-quarkus"
+            ],
+            "settings": {
+                "java.configuration.updateBuildConfiguration": "automatic",
+                "java.format.settings.url": "https://raw.githubusercontent.com/google/styleguide/gh-pages/eclipse-java-google-style.xml",
+                "java.format.settings.profile": "GoogleStyle",
+                "locale": "en",
+                "quarkus.tools.alwaysShowWelcomePage": false
+            }
+        }
+    },
 	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
-	// "remoteUser": "root"
+	"remoteUser": "vscode"
 }
