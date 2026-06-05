@@ -19,10 +19,22 @@ mvn package -Pnative
 mvn package -Pnative -Dquarkus.native.container-build=true
 ```
 
-## Dockerhub
+## Docker images
 
-Images can be found at <https://hub.docker.com/r/aldjinn/totally-useless>.
+Images are built for **linux/amd64** and **linux/arm64** on every push to `main`.
+
+### Docker Hub
+
+<https://hub.docker.com/r/aldjinn/totally-useless>
 
 ```bash
 docker run --rm -p 8080:8080 aldjinn/totally-useless:latest
+```
+
+### GitHub Container Registry
+
+<https://github.com/Aldjinn/totally-useless/pkgs/container/totally-useless>
+
+```bash
+docker run --rm -p 8080:8080 ghcr.io/aldjinn/totally-useless:latest
 ```
