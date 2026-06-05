@@ -11,6 +11,9 @@ concurrency:
 jobs:
   build-jvm:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
     steps:
       - uses: actions/checkout@v6
       - name: Set up JDK 25
@@ -60,6 +63,9 @@ jobs:
 
   build-native-x64:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
     steps:
       - uses: actions/checkout@v6
       - name: Set up JDK 25
@@ -105,6 +111,9 @@ jobs:
 
   build-native-arm64:
     runs-on: [ubuntu-24.04-arm]
+    permissions:
+      contents: read
+      packages: write
     steps:
       - uses: actions/checkout@v6
       - name: Set up JDK 25
@@ -155,6 +164,9 @@ jobs:
   link-native-to-latest:
     runs-on: ubuntu-latest
     needs: [build-native-x64, build-native-arm64]
+    permissions:
+      contents: read
+      packages: write
     steps:
       - name: Login to DockerHub
         uses: docker/login-action@v4
